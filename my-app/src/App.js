@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate'
 import Loader  from './Loader/Loader';
 import Table from "./Table/Table";
 import _ from 'lodash'
-
+import TableSearch from "./TableSearch/TableSearch";
 
 
 
@@ -13,6 +13,7 @@ class App extends Component {
   state= {
     isloading: true,
     data: [],
+    search: '',
     sort: 'asc', 
     sortField: 'id',
     currentPage: 0
@@ -36,29 +37,60 @@ class App extends Component {
     this.setState({data,sort,sortField})
   }
 
-  pageChangeHandler = (selected) => {
+  pageChangeHandler = ({selected}) => {
     this.setState({currentPage: selected})
   }
 
+
+  searchHandler = search => {
+    this.setState({search, currentPage: 0})
+  }
+
+     getFilteredData() {      
+      let {data, search} = this.state
+
+      if(!search) {
+        return data
+      }
+     
+
+      const s = data.filter(item => { 
+
+        return item['name'].toLowerCase().includes(search.toLowerCase())
+          || item['username'].toLowerCase().includes(search.toLowerCase())
+          || item['email'].toLowerCase().includes(search.toLowerCase())
+          || item['phone'].toLowerCase().includes(search.toLowerCase())
+
+      })
+    
+      return s
+    }
+
   render(){
     const pageSize = 5
+          
+    const filteredData =  this.getFilteredData()
 
-    const displayData = _.chunk(this.state.data, pageSize)
+    const pageCount = Math.ceil((filteredData.length/pageSize))
+
+    const displayData = _.chunk(filteredData, pageSize)
     [this.state.currentPage]
-
-
     return (
     <div className="container">
     { 
       this.state.isloading
       ? <Loader />
-      : <Table 
-        data={displayData}
-        onSort={this.onSort}
-        sort= {this.state.sort}
-        sortField={this.state.sortField}
-      />
-    }
+      : <React.Fragment>
+          <TableSearch onSearch={this.searchHandler} />
+          <Table 
+            data={displayData}
+            onSort={this.onSort}
+            sort= {this.state.sort}
+            sortField={this.state.sortField}
+          />
+    
+        </React.Fragment>
+  } 
 
       
 
@@ -69,7 +101,7 @@ class App extends Component {
         nextLabel={'>'}
         breakLabel={'...'}
         breakClassName={'break-me'}
-        pageCount={2}       /*this.state.pageCount*/
+        pageCount={pageCount}       /*this.state.pageCount*/
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={this.pageChangeHandler}
@@ -91,3 +123,4 @@ class App extends Component {
 }
 
 export default App;
+

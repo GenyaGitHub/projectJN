@@ -21,7 +21,7 @@ let Table = props => (
       </tr>
     </thead>
     <tbody>
-        {props.data.map(item => (
+        {props.data?.map(item => (
         <tr key={item.id}>
             <td>{item.id}</td>
             <td>{item.name}</td>
