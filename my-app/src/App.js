@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ColumnResizer from 'column-resizer';
 import ReactPaginate from 'react-paginate'
 import Loader  from './Loader/Loader';
 import Table from "./Table/Table";
@@ -27,6 +28,7 @@ class App extends Component {
     isloading:false,
     data: _.orderBy(data, this.state.sortField, this.state.sortType)
    })
+   this.enableResize()
   }
 
 
@@ -65,6 +67,13 @@ class App extends Component {
     
       return s
     }
+    enableResize() {
+      this.resizer = new ColumnResizer(document.querySelector("#table"),{
+        liveDrag:true,
+        //draggingClass:"rangeDrag",
+        //gripInnerHtml:"<div class='rangeGrip'></div>",
+        minWidth:8,
+  })};
 
   render(){
     const pageSize = 5

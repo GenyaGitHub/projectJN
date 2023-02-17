@@ -1,9 +1,11 @@
 import React from "react";
+import "./Table.css"
+
 let Table = props => (
-    <table className="table">
+    <table className="table" id="table">
     <thead>
-      <tr>
-        <th onClick={props?.onSort.bind(null, 'id')}>
+      <tr className="tr">
+        <th  onClick={props?.onSort.bind(null, 'id')}>
             ID {props?.sortField === 'id' ? <small>{props.sort}</small> : null}
         </th>
         <th onClick={props?.onSort.bind(null, 'name')}>
@@ -22,7 +24,7 @@ let Table = props => (
     </thead>
     <tbody>
         {props.data?.map(item => (
-        <tr key={item.id}>
+        <tr className="tr" key={item.id}>
             <td>{item.id}</td>
             <td>{item.name}</td>
             <td>{item.username}</td>
