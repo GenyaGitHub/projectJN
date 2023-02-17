@@ -1,21 +1,21 @@
 import React from "react";
 let Table = props => (
-    <table className="table">
+    <table className="table" id="table">
     <thead>
       <tr>
-        <th onClick={props?.onSort.bind(null, 'id')}>
+        <th id="ID"onClick={props?.onSort.bind(null, 'id')}>
             ID {props?.sortField === 'id' ? <small>{props.sort}</small> : null}
         </th>
-        <th onClick={props?.onSort.bind(null, 'name')}>
+        <th id="Name" onClick={props?.onSort.bind(null, 'name')}>
             Name {props?.sortField === 'name' ? <small>{props.sort}</small> : null}
         </th>
-        <th onClick={props?.onSort.bind(null, 'username')}>
+        <th id="Username" onClick={props?.onSort.bind(null, 'username')}>
             Username {props?.sortField === 'username' ? <small>{props.sort}</small> : null}
         </th>
-        <th onClick={props?.onSort.bind(null, 'email')}>
+        <th id="Email" onClick={props?.onSort.bind(null, 'email')}>
             Email {props?.sortField === 'email' ? <small>{props.sort}</small> : null}
         </th>
-        <th onClick={props?.onSort.bind(null, 'phone')}>
+        <th id="Phone"  onClick={props?.onSort.bind(null, 'phone')}>
             Phone {props?.sortField === 'phone' ? <small>{props.sort}</small> : null}
         </th>
       </tr>

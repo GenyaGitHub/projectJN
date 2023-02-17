@@ -1,3 +1,4 @@
+import ColumnResizer from 'column-resizer';
 import React, { Component } from "react";
 import ReactPaginate from 'react-paginate'
 import Loader  from './Loader/Loader';
@@ -27,6 +28,7 @@ class App extends Component {
     isloading:false,
     data: _.orderBy(data, this.state.sortField, this.state.sortType)
    })
+   this.enableResize();
   }
 
 
@@ -66,6 +68,24 @@ class App extends Component {
       return s
     }
 
+
+ 
+
+  enableResize() {
+    
+          this.resizer = new ColumnResizer(
+              document.querySelector("#table"), {
+                    liveDrag:true,
+                    // draggingClass:"rangeDrag",
+                    // gripInnerHtml:"<div class='rangeGrip'></div>",
+                    minWidth:8
+                  });
+          
+    
+  }
+
+ 
+    
   render(){
     const pageSize = 5
           
@@ -80,7 +100,8 @@ class App extends Component {
     { 
       this.state.isloading
       ? <Loader />
-      : <React.Fragment>
+      :
+       <React.Fragment>
           <TableSearch onSearch={this.searchHandler} />
           <Table 
             data={displayData}
