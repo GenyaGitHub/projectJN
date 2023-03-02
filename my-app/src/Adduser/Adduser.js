@@ -8,7 +8,7 @@ class AddUser extends Component {
             id: '',
             name: props.name || '',
             username: props.username || '',
-            phone: props.phone ||'',
+            phone: props.phone || '',
             city: props.city || ''
            
         }
@@ -33,13 +33,16 @@ class AddUser extends Component {
             
         })
     }
-
+ 
     render() {
         const { name, username, phone, city } = this.state;
-
+        // console.log(this.props.s.editId)
+        // const user = this.props.s.data.find(x => x.id.toString() === this.props.s.editI);
+        // console.log(user)
         return (
             <div className="app-add-form">
-                <h3>Добавьте нового сотрудника</h3>
+               {this.props.onAdd ?  <h3>Add User</h3> : <h3>Update</h3>}
+               
                 <form
                     className="add-form d-flex"
                     onSubmit = {this.onSubmit}>
@@ -47,7 +50,7 @@ class AddUser extends Component {
                         className="form-control new-post-label"
                         placeholder="name"
                         name="name"
-                        value={name} 
+                        value={this.props.onAdd ? name : "a"}// `${user}`} 
                         onChange={this.onValueChange}/>
                     <input type="text"
                         className="form-control new-post-label"
@@ -68,7 +71,7 @@ class AddUser extends Component {
                         value={city} 
                         onChange={this.onValueChange}/>
                     <button type="submit"
-                        className="btn btn-outline-light">Добавить</button>
+                        className="btn btn-outline-light">{this.props.onAdd ? "Add" : "Update"}</button>
                 </form>
             </div>
         )

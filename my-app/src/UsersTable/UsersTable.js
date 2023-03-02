@@ -90,7 +90,9 @@ class UsersTable extends Component {
               editT={this.props.editTable}
             />
             <AddUser
+             s={this.props.s}
              onAdd={this.props.addUser}
+             editT={this.props.editTable}
             />
 
           </React.Fragment>
